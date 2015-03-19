@@ -29,7 +29,9 @@
     // Then create and add our custom BBBadgeBarButtonItem
     BBBadgeBarButtonItem *barButton = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:customButton];
     // Set a value for the badge
-    barButton.badgeValue = @"2";
+    barButton.badgeValue = @"0";
+    barButton.badgeBorderWidth = 1.0;
+    barButton.badgeBorderColor = [UIColor purpleColor];
     
     barButton.badgeOriginX = 13;
     barButton.badgeOriginY = -9;

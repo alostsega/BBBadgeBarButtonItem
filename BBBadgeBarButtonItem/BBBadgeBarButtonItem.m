@@ -32,13 +32,15 @@
 - (void)initializer
 {
     // Default design initialization
-    self.badgeBGColor   = [UIColor redColor];
-    self.badgeTextColor = [UIColor whiteColor];
-    self.badgeFont      = [UIFont systemFontOfSize:12.0];
-    self.badgePadding   = 6;
-    self.badgeMinSize   = 8;
-    self.badgeOriginX   = 7;
-    self.badgeOriginY   = -9;
+    self.badgeBGColor       = [UIColor redColor];
+    self.badgeTextColor     = [UIColor whiteColor];
+    self.badgeFont          = [UIFont systemFontOfSize:12.0];
+    self.badgeBorderColor   = [UIColor clearColor];
+    self.badgeBorderWidth   = 0.0;
+    self.badgePadding       = 6;
+    self.badgeMinSize       = 8;
+    self.badgeOriginX       = 7;
+    self.badgeOriginY       = -9;
     self.shouldHideBadgeAtZero = YES;
     self.shouldAnimateBadge = YES;
     // Avoids badge to be clipped when animating its scale
@@ -51,9 +53,11 @@
 - (void)refreshBadge
 {
     // Change new attributes
-    self.badge.textColor        = self.badgeTextColor;
-    self.badge.backgroundColor  = self.badgeBGColor;
-    self.badge.font             = self.badgeFont;
+    self.badge.textColor            = self.badgeTextColor;
+    self.badge.backgroundColor      = self.badgeBGColor;
+    self.badge.font                 = self.badgeFont;
+    self.badge.layer.borderColor    = [self.badgeBorderColor CGColor];
+    self.badge.layer.borderWidth    = self.badgeBorderWidth;
 }
 
 - (void)updateBadgeFrame
@@ -140,6 +144,8 @@
         self.badge                      = [[UILabel alloc] initWithFrame:CGRectMake(self.badgeOriginX, self.badgeOriginY, 20, 20)];
         self.badge.textColor            = self.badgeTextColor;
         self.badge.backgroundColor      = self.badgeBGColor;
+        self.badge.layer.borderColor    = [self.badgeBorderColor CGColor];
+        self.badge.layer.borderWidth    = self.badgeBorderWidth;
         self.badge.font                 = self.badgeFont;
         self.badge.textAlignment        = NSTextAlignmentCenter;
 
@@ -163,6 +169,24 @@
 {
     _badgeTextColor = badgeTextColor;
 
+    if (self.badge) {
+        [self refreshBadge];
+    }
+}
+
+- (void)setBadgeBorderColor:(UIColor *)badgeBorderColor
+{
+    _badgeBorderColor = badgeBorderColor;
+    
+    if (self.badge) {
+        [self refreshBadge];
+    }
+}
+
+- (void)setBadgeBorderWidth:(CGFloat)badgeBorderWidth
+{
+    _badgeBorderWidth = badgeBorderWidth;
+    
     if (self.badge) {
         [self refreshBadge];
     }
